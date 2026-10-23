@@ -1,0 +1,15 @@
+if (Test-Path .\public -PathType Leaf) {
+    $backup = "public_backup_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
+    Rename-Item .\public $backup
+}
+
+if (!(Test-Path .\public -PathType Container)) {
+    New-Item -ItemType Directory -Path .\public
+}
+
+foreach ($file in @("index.html", "style.css", "script.js")) {
+    $path = Join-Path .\public $file
+    if (!(Test-Path $path)) {
+        New-Item -ItemType File -Path $path
+    }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online Music Player</title>
+
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>🎵 Online Music Player</h1>
+        <p>Your music, your mood.</p>
+    </header>
+
+    <main>
+        <!-- Music Player -->
+        <section class="card player">
+            <h2>🎧 Now Playing</h2>
+
+            <p id="nowPlaying">Choose a song to begin</p>
+
+            <audio id="audioPlayer" controls>
+                Your browser does not support audio playback.
+            </audio>
+
+            <div class="controls">
+                <button id="previousBtn" type="button">
+                    ⏮ Previous
+                </button>
+
+                <button id="nextBtn" type="button">
+                    Next ⏭
+                </button>
+            </div>
+        </section>
+
+        <!-- Songs List -->
+        <section class="card">
+            <h2>🎶 Your Songs</h2>
+
+            <p id="status">Loading songs...</p>
+
+            <div id="songList">
+                <!-- Songs will load from MongoDB through the API -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Online Music Player | Powered by Express.js and MongoDB</p>
+    </footer>
+</body>
+</html>
