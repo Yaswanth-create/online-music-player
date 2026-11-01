@@ -1,13 +1,12 @@
 {
-  "name": "online-music",
+  "name": "online-music-player",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
+  "description": "Online Music Player",
+  "main": "server.js",
   "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "express": "^5.3.0",
     "mongoose": "^9.11.1"
