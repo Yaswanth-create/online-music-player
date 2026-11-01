@@ -1,12 +1,21 @@
 {
   "name": "online-music-player",
   "version": "1.0.0",
+<<<<<<< HEAD
   "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "engines": { "node": ">=20" },
+=======
+  "description": "Online Music Player using Node.js, Express.js and MongoDB",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+>>>>>>> 6a912e148dfc3c5481e31752acf8307ec2d88208
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
