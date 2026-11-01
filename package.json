@@ -1,7 +1,7 @@
 {
   "name": "online-music-player",
   "version": "1.0.0",
-  "description": "Online Music Player",
+  "description": "Online Music Player using Node.js, Express.js and MongoDB",
   "main": "server.js",
   "type": "module",
   "scripts": {
