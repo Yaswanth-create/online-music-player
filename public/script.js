@@ -1,106 +1,56 @@
-const audioPlayer = document.getElementById("audioPlayer");
-const nowPlaying = document.getElementById("nowPlaying");
-const songList = document.getElementById("songList");
-const statusText = document.getElementById("status");
+const audio = document.getElementById("audio");
+const titleEl = document.getElementById("title");
+const artistEl = document.getElementById("artist");
+const listEl = document.getElementById("songList");
 
 let songs = [];
-let currentIndex = -1;
+let current = -1;
 
 async function loadSongs() {
-    statusText.textContent = "Loading songs...";
-
-    try {
-        const response = await fetch("/songs");
-
-        if (!response.ok) {
-            throw new Error(`Server returned ${response.status}`);
-        }
-
-        songs = await response.json();
-
-        if (!Array.isArray(songs)) {
-            throw new Error("Unexpected response from the server");
-        }
-
-        renderSongs();
-
-        statusText.textContent = songs.length
-            ? `${songs.length} songs loaded successfully!`
-            : "No songs found in MongoDB.";
-    } catch (error) {
-        console.error("Loading songs failed:", error);
-        statusText.textContent =
-            "Could not load songs. Check the server and MongoDB connection.";
-    }
+  try {
+    const res = await fetch("/songs");
+    songs = await res.json();
+    renderList();
+    if (songs.length) playSong(0, false);
+    else titleEl.textContent = "No songs yet";
+  } catch (err) {
+    titleEl.textContent = "Could not load songs";
+    console.error(err);
+  }
 }
 
-function renderSongs() {
-    songList.replaceChildren();
-
-    songs.forEach((song, index) => {
-        const row = document.createElement("div");
-        row.className = "song";
-
-        const info = document.createElement("div");
-        info.className = "song-info";
-
-        const title = document.createElement("strong");
-        title.textContent = song.title;
-
-        const artist = document.createElement("p");
-        artist.textContent = song.artist;
-
-        const playButton = document.createElement("button");
-        playButton.type = "button";
-        playButton.textContent = "▶ Play";
-        playButton.addEventListener("click", () => playSong(index));
-
-        info.append(title, artist);
-        row.append(info, playButton);
-        songList.appendChild(row);
-    });
+function renderList() {
+  listEl.innerHTML = "";
+  songs.forEach((song, i) => {
+    const li = document.createElement("li");
+    li.textContent = `${song.title} — ${song.artist}`;
+    li.addEventListener("click", () => playSong(i));
+    listEl.appendChild(li);
+  });
 }
 
-async function playSong(index) {
-    if (index < 0 || index >= songs.length) return;
-
-    currentIndex = index;
-
-    const song = songs[index];
-
-    audioPlayer.src = song.file;
-    nowPlaying.textContent = `${song.title} — ${song.artist}`;
-
-    try {
-        await audioPlayer.play();
-        statusText.textContent = `Playing: ${song.title}`;
-    } catch (error) {
-        console.error("Playback failed:", error);
-        statusText.textContent =
-            "Cannot play audio. Check whether the MP3 file exists.";
-    }
+function playSong(index, autoplay = true) {
+  current = index;
+  const song = songs[current];
+  audio.src = song.file;
+  titleEl.textContent = song.title;
+  artistEl.textContent = song.artist;
+  [...listEl.children].forEach((li, i) =>
+    li.classList.toggle("active", i === current)
+  );
+  if (autoplay) audio.play();
 }
 
-document.getElementById("previousBtn").addEventListener("click", () => {
-    if (songs.length === 0) return;
-
-    const index = currentIndex <= 0
-        ? songs.length - 1
-        : currentIndex - 1;
-
-    playSong(index);
+document.getElementById("next").addEventListener("click", () => {
+  if (songs.length) playSong((current + 1) % songs.length);
 });
 
-document.getElementById("nextBtn").addEventListener("click", () => {
-    if (songs.length === 0) return;
-
-    playSong((currentIndex + 1) % songs.length);
+document.getElementById("prev").addEventListener("click", () => {
+  if (songs.length) playSong((current - 1 + songs.length) % songs.length);
 });
 
-audioPlayer.addEventListener("ended", () => {
-    if (songs.length > 0) {
-        playSong((currentIndex + 1) % songs.length);
-    }
+audio.addEventListener("ended", () => {
+  if (songs.length) playSong((current + 1) % songs.length);
 });
 
 loadSongs();

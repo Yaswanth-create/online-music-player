@@ -1,111 +1,42 @@
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #111827;
-    color: #f9fafb;
-}
-
-header {
-    text-align: center;
-    padding: 35px 15px;
-    background: linear-gradient(135deg, #312e81, #111827);
-}
-
-header h1 {
-    margin: 0 0 10px;
-    font-size: 32px;
-}
-
-header p {
-    color: #d1d5db;
-}
-
-main {
-    width: 90%;
-    max-width: 850px;
-    margin: 30px auto;
-}
-
-.card {
-    background: #1f2937;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px #00000030;
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #fff;
 }
 
 .player {
-    text-align: center;
+  width: min(92vw, 420px);
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 16px;
+  text-align: center;
 }
 
-#nowPlaying {
-    color: #6ee7b7;
-    font-weight: bold;
-}
+.now-playing h2 { margin: 12px 0 4px; }
+.now-playing p { margin: 0 0 16px; opacity: 0.8; }
 
-audio {
-    width: 100%;
-    margin: 20px 0;
-}
+audio { width: 100%; }
 
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-}
+.controls { display: flex; gap: 10px; margin: 16px 0; }
 
 button {
-    border: none;
-    border-radius: 8px;
-    padding: 12px 18px;
-    background: #10b981;
-    color: #052e24;
-    font-weight: bold;
-    cursor: pointer;
+  flex: 1;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background: #6c5ce7;
+  color: #fff;
+  cursor: pointer;
 }
+button:hover { background: #8075f0; }
 
-button:hover {
-    background: #6ee7b7;
-}
-
-.song {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 16px 0;
-    border-bottom: 1px solid #374151;
-}
-
-.song-info {
-    overflow-wrap: anywhere;
-}
-
-.song-info p {
-    margin: 6px 0 0;
-    color: #d1d5db;
-}
-
-#status {
-    color: #a7f3d0;
-}
-
-footer {
-    padding: 20px;
-    text-align: center;
-    color: #9ca3af;
-}
-
-@media (max-width: 500px) {
-    header h1 {
-        font-size: 25px;
-    }
-
-    .card {
-        padding: 18px;
-    }
-}
+ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+li { padding: 10px; border-radius: 8px; cursor: pointer; }
+li:hover { background: rgba(255, 255, 255, 0.1); }
+li.active { background: #6c5ce7; }

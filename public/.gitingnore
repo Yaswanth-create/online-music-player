@@ -3,3 +3,5 @@ node_modules/
 .venv/
 .env
 "@ | Set-Content .gitignore
+node_modules/
+.env
